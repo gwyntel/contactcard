@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GWYNTEL's CORNER ★</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    @property --float-y {
+      syntax: '<length>';
+      initial-value: 0px;
+      inherits: false;
+    }
+
+    @property --rotate-val {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    :root {
+      /* Pastel Progress Pride Palette */
+      --pastel-pink: #FFB5C5;
+      --pastel-blue: #A5D8FF;
+      --pastel-lavender: #D4B8FF;
+      --pastel-yellow: #FFF0A5;
+      --pastel-green: #A8E6CF;
+      --pastel-peach: #FFCDB2;
+      --pastel-cream: #FFF5E6;
+      --pastel-charcoal: #5C5C5C;
+      --pastel-brown: #C9A88A;
+      
+      /* Base colors */
+      --bg: #FDF8F5;
+      --bg-alt: #FFF9F5;
+      --card: rgba(255, 255, 255, 0.7);
+      
+      --text: #2D2A26;
+      --text-muted: #7A7572;
+      
+      --accent: #E8789A;
+      --accent-alt: #9B8FD9;
+      
+      /* Spacing - 4pt base */
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --space-10: 40px;
+      --space-12: 48px;
+      --space-16: 64px;
+      
+      --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 18px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Instrument Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Ambient background shapes */
+    .ambient-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      animation: blob-float 20s ease-in-out infinite;
+    }
+
+    .blob-1 {
+      width: 500px;
+      height: 500px;
+      background: var(--pastel-pink);
+      top: -10%;
+      left: -10%;
+      animation-delay: 0s;
+    }
+
+    .blob-2 {
+      width: 400px;
+      height: 400px;
+      background: var(--pastel-lavender);
+      top: 50%;
+      right: -5%;
+      animation-delay: -5s;
+    }
+
+    .blob-3 {
+      width: 350px;
+      height: 350px;
+      background: var(--pastel-blue);
+      bottom: -5%;
+      left: 30%;
+      animation-delay: -10s;
+    }
+
+    @keyframes blob-float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(30px, -30px) scale(1.05); }
+      50% { transform: translate(-20px, 20px) scale(0.95); }
+      75% { transform: translate(20px, 30px) scale(1.02); }
+    }
+
+    /* Grain texture */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.02;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Main layout - asymmetric */
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--space-16) var(--space-6);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-12);
+    }
+
+    @media (min-width: 800px) {
+      .container {
+        grid-template-columns: 320px 1fr;
+        gap: var(--space-16);
+        align-items: start;
+      }
+    }
+
+    /* Header - signature hero */
+    .hero {
+      position: relative;
+      padding: var(--space-12) var(--space-8);
+      text-align: center;
+      animation: hero-entrance 1s var(--ease-out-expo) both;
+    }
+
+    @media (min-width: 800px) {
+      .hero {
+        position: sticky;
+        top: var(--space-8);
+        text-align: left;
+        padding: var(--space-8) 0;
+      }
+    }
+
+    @keyframes hero-entrance {
+      from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-lavender));
+      color: white;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: var(--space-2) var(--space-4);
+      border-radius: 100px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-6);
+      animation: badge-pulse 3s ease-in-out infinite;
+      box-shadow: 0 4px 20px rgba(232, 120, 154, 0.3);
+    }
+
+    @keyframes badge-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    .hero-badge::before {
+      content: '✦';
+      animation: star-spin 4s linear infinite;
+    }
+
+    @keyframes star-spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    h1 {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: var(--space-4);
+      position: relative;
+    }
+
+    h1 .letter {
+      display: inline-block;
+      animation: letter-bounce 0.6s var(--spring) both;
+    }
+
+    h1 .letter:nth-child(1) { animation-delay: 0.1s; }
+    h1 .letter:nth-child(2) { animation-delay: 0.12s; }
+    h1 .letter:nth-child(3) { animation-delay: 0.14s; }
+    h1 .letter:nth-child(4) { animation-delay: 0.16s; }
+    h1 .letter:nth-child(5) { animation-delay: 0.18s; }
+    h1 .letter:nth-child(6) { animation-delay: 0.2s; }
+    h1 .letter:nth-child(7) { animation-delay: 0.22s; }
+
+    @keyframes letter-bounce {
+      from {
+        opacity: 0;
+        transform: translateY(30px) rotate(-5deg);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) rotate(0);
+      }
+    }
+
+    h1:hover .letter {
+      animation: letter-wave 0.5s var(--spring);
+    }
+
+    h1:hover .letter:nth-child(odd) {
+      animation-delay: 0s;
+    }
+
+    h1:hover .letter:nth-child(even) {
+      animation-delay: 0.1s;
+    }
+
+    @keyframes letter-wave {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .hero-tagline {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-3);
+    }
+
+    @media (min-width: 800px) {
+      .hero-tagline {
+        justify-content: flex-start;
+      }
+    }
+
+    .hero-tagline::before {
+      content: '>';
+      color: var(--accent);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      justify-content: center;
+      margin-top: var(--space-6);
+      animation: fade-scale 0.6s var(--ease-out-expo) both;
+      animation-delay: 0.4s;
+    }
+
+    @media (min-width: 800px) {
+      .hero-actions {
+        justify-content: flex-start;
+      }
+    }
+
+    .hero-action {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-5);
+      background: white;
+      border: 2px solid var(--pastel-lavender);
+      border-radius: 100px;
+      color: var(--text);
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s var(--spring);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .hero-action:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+      box-shadow: 0 8px 20px rgba(232, 120, 154, 0.2);
+    }
+
+    .hero-action-alt {
+      border-color: var(--pastel-blue);
+    }
+
+    .hero-action-alt:hover {
+      border-color: #7AB8FF;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      background: var(--accent);
+      animation: cursor-blink 1s step-end infinite;
+      vertical-align: middle;
+    }
+
+    @keyframes cursor-blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+
+    /* Floating decorations around hero */
+    .hero-deco {
+      position: absolute;
+      font-size: 1.5rem;
+      pointer-events: none;
+      animation: float-deco 6s ease-in-out infinite;
+    }
+
+    .deco-1 { top: 10%; left: -10%; animation-delay: 0s; color: var(--pastel-pink); }
+    .deco-2 { top: 60%; right: -5%; animation-delay: -2s; color: var(--pastel-lavender); }
+    .deco-3 { bottom: 20%; left: 5%; animation-delay: -4s; color: var(--pastel-blue); }
+
+    @keyframes float-deco {
+      0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+      50% { transform: translateY(-15px) rotate(10deg); opacity: 1; }
+    }
+
+    /* Links grid - unique layout */
+    .links-container {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+    }
+
+    .section {
+      position: relative;
+      animation: section-slide 0.7s var(--ease-out-expo) both;
+    }
+
+    .section:nth-child(1) { animation-delay: 0.3s; }
+    .section:nth-child(2) { animation-delay: 0.4s; }
+    .section:nth-child(3) { animation-delay: 0.5s; }
+    .section:nth-child(4) { animation-delay: 0.6s; }
+
+    @keyframes section-slide {
+      from {
+        opacity: 0;
+        transform: translateX(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-4);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .section-icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      border-radius: 12px;
+      transition: all 0.3s var(--spring);
+    }
+
+    .section:nth-child(1) .section-icon { background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-peach)); }
+    .section:nth-child(2) .section-icon { background: linear-gradient(135deg, var(--pastel-blue), var(--pastel-lavender)); }
+    .section:nth-child(3) .section-icon { background: linear-gradient(135deg, var(--pastel-green), var(--pastel-yellow)); }
+    .section:nth-child(4) .section-icon { background: linear-gradient(135deg, var(--pastel-yellow), var(--pastel-peach)); }
+
+    .section-header:hover .section-icon {
+      transform: scale(1.1) rotate(-5deg);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      transition: color 0.3s ease;
+    }
+
+    .section-header:hover .section-title {
+      color: var(--text);
+    }
+
+    .section-line {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, var(--pastel-lavender) 0%, transparent 100%);
+      border-radius: 1px;
+      opacity: 0.5;
+      transform-origin: left;
+      transition: all 0.4s var(--ease-out-expo);
+    }
+
+    .section-header:hover .section-line {
+      opacity: 1;
+      transform: scaleX(1.1);
+    }
+
+    .section-chevron {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      transition: all 0.3s var(--spring);
+      transform: rotate(0deg);
+    }
+
+    .section.collapsed .section-chevron {
+      transform: rotate(-90deg);
+    }
+
+    .section-header:hover .section-chevron {
+      color: var(--accent);
+    }
+
+    /* Links wrapper for collapse animation */
+    .links-wrapper {
+      display: grid;
+      grid-template-rows: 1fr;
+      transition: grid-template-rows 0.4s var(--ease-out-expo), opacity 0.3s ease;
+    }
+
+    .links-wrapper.collapsed {
+      grid-template-rows: 0fr;
+    }
+
+    .links-grid {
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .link-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-4) var(--space-5);
+      background: var(--card);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.3s var(--ease-out-quart);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      animation: link-enter 0.5s var(--ease-out-expo) forwards;
+    }
+
+    .link-item::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--pastel-pink) 0%, var(--pastel-lavender) 50%, var(--pastel-blue) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+
+    .link-item:hover::before {
+      opacity: 0.15;
+    }
+
+    .link-item:hover {
+      transform: translateX(8px) scale(1.02);
+      box-shadow: 0 10px 40px rgba(232, 120, 154, 0.15);
+    }
+
+    .link-item:active {
+      transform: scale(0.98);
+    }
+
+    .link-item:nth-child(1) { animation-delay: calc(var(--delay, 0) + 0.05s); }
+    .link-item:nth-child(2) { animation-delay: calc(var(--delay, 0) + 0.1s); }
+    .link-item:nth-child(3) { animation-delay: calc(var(--delay, 0) + 0.15s); }
+    .link-item:nth-child(4) { animation-delay: calc(var(--delay, 0) + 0.2s); }
+    .link-item:nth-child(5) { animation-delay: calc(var(--delay, 0) + 0.25s); }
+    .link-item:nth-child(6) { animation-delay: calc(var(--delay, 0) + 0.3s); }
+
+    .section:nth-child(1) { --delay: 0.35s; }
+    .section:nth-child(2) { --delay: 0.45s; }
+    .section:nth-child(3) { --delay: 0.55s; }
+    .section:nth-child(4) { --delay: 0.65s; }
+
+    @keyframes link-enter {
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .link-icon {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      transition: all 0.3s var(--spring);
+      flex-shrink: 0;
+    }
+
+    .link-item:hover .link-icon {
+      transform: rotate(-10deg) scale(1.1);
+    }
+
+    .link-text {
+      flex: 1;
+      font-weight: 500;
+      font-size: 1rem;
+    }
+
+    .link-arrow {
+      font-family: 'Space Mono', monospace;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: all 0.3s var(--ease-out-quart);
+    }
+
+    .link-item:hover .link-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Effects toggle */
+    .effects-toggle {
+      position: fixed;
+      bottom: var(--space-8);
+      right: var(--space-6);
+      z-index: 100;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: white;
+      border: none;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: all 0.3s var(--spring);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .effects-toggle:hover {
+      transform: scale(1.1) rotate(15deg);
+      box-shadow: 0 8px 30px rgba(232, 120, 154, 0.3);
+    }
+
+    .effects-toggle:active {
+      transform: scale(0.95);
+    }
+
+    .effects-toggle::after {
+      content: attr(data-state);
+      position: absolute;
+      right: calc(100% + var(--space-3));
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .effects-toggle:hover::after {
+      opacity: 1;
+    }
+
+    /* Pastel Progress Pride Bar */
+    .pride-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 48px;
+      background: linear-gradient(
+        90deg,
+        /* Trans chevron colors */
+        var(--pastel-pink) 0%,
+        var(--pastel-blue) 12%,
+        var(--pastel-cream) 24%,
+        /* Marginalized communities */
+        var(--pastel-brown) 24%,
+        var(--pastel-charcoal) 36%,
+        /* Pastel rainbow */
+        #FFB5B5 36%,
+        #FFD4A5 48%,
+        var(--pastel-yellow) 60%,
+        var(--pastel-green) 72%,
+        var(--pastel-blue) 84%,
+        var(--pastel-lavender) 100%
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 99;
+      box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.08);
+      animation: pride-entrance 0.8s var(--ease-out-expo) both;
+      animation-delay: 0.8s;
+    }
+
+    @keyframes pride-entrance {
+      from {
+        opacity: 0;
+        transform: translateY(100%);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .pride-bar::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, 
+        rgba(255,255,255,0.3) 0%, 
+        transparent 50%, 
+        rgba(255,255,255,0.2) 100%
+      );
+      pointer-events: none;
+    }
+
+    .pride-text {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: white;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      letter-spacing: 0.08em;
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      transition: transform 0.3s var(--spring);
+    }
+
+    .pride-text:hover {
+      transform: scale(1.05);
+    }
+
+    .pride-star {
+      display: inline-block;
+      animation: star-pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes star-pulse {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.2) rotate(10deg); }
+    }
+
+    /* Floating sparkles */
+    .sparkles-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 50;
+    }
+
+    .sparkle-float {
+      position: absolute;
+      font-size: 1rem;
+      animation: sparkle-drift 8s ease-in-out infinite;
+      opacity: 0;
+    }
+
+    @keyframes sparkle-drift {
+      0%, 100% {
+        opacity: 0;
+        transform: translateY(100vh) rotate(0deg) scale(0.5);
+      }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.6; }
+      100% {
+        opacity: 0;
+        transform: translateY(-20vh) rotate(360deg) scale(1);
+      }
+    }
+
+    /* Rainbow mode easter egg */
+    .rainbow-mode {
+      animation: rainbow-bg-shift 4s linear infinite;
+    }
+
+    @keyframes rainbow-bg-shift {
+      0% { --bg: #FDF8F5; }
+      25% { --bg: #FFF5F8; }
+      50% { --bg: #F5F8FF; }
+      75% { --bg: #F8F5FF; }
+      100% { --bg: #FDF8F5; }
+    }
+
+    .rainbow-mode h1 {
+      animation: rainbow-text 2s linear infinite;
+    }
+
+    @keyframes rainbow-text {
+      0% { color: var(--pastel-pink); }
+      25% { color: var(--pastel-yellow); }
+      50% { color: var(--pastel-green); }
+      75% { color: var(--pastel-lavender); }
+      100% { color: var(--pastel-pink); }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .link-item {
+        opacity: 1;
+        transform: none;
+      }
+
+      .sparkles-layer, .ambient-bg {
+        display: none;
+      }
+    }
+
+    /* Effects disabled */
+    body.effects-off .blob,
+    body.effects-off .sparkles-layer,
+    body.effects-off .hero-deco,
+    body.effects-off .cursor,
+    body.effects-off .section,
+    body.effects-off .link-item,
+    body.effects-off h1 .letter,
+    body.effects-off .hero,
+    body.effects-off .pride-bar {
+      animation: none !important;
+    }
+
+    body.effects-off .link-item {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 600px) {
+      html { font-size: 16px; }
+      .container { padding: var(--space-10) var(--space-4); }
+      .hero { padding: var(--space-8) var(--space-4); }
+      .pride-bar { height: 44px; }
+      .pride-text { font-size: 0.75rem; }
+      .effects-toggle {
+        width: 44px;
+        height: 44px;
+        bottom: var(--space-16);
+      }
+      .hero-deco { display: none; }
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Ambient background -->
+  <div class="ambient-bg">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <!-- Floating sparkles -->
+  <div class="sparkles-layer" id="sparkles"></div>
+
+  <!-- Effects toggle -->
+  <button class="effects-toggle" id="toggleEffects" data-state="Effects: ON" aria-label="Toggle visual effects">
+    ✨
+  </button>
+
+  <div class="container">
+    <!-- Hero section -->
+    <div class="hero">
+      <div class="hero-badge">Welcome to the Corner</div>
+      <h1>
+        <span class="letter">G</span><span class="letter">W</span><span class="letter">Y</span><span class="letter">N</span><span class="letter">T</span><span class="letter">E</span><span class="letter">L</span>
+      </h1>
+      <div class="hero-tagline">
+        <span>connecting to the void</span>
+        <span class="cursor"></span>
+      </div>
+      <div class="hero-actions">
+        <a href="https://ai.gwyn.tel/" class="hero-action">✨ Talk to Sydney</a>
+        <a href="work.html" class="hero-action hero-action-alt">💼 Work Profile</a>
+      </div>
+      <span class="hero-deco deco-1">✦</span>
+      <span class="hero-deco deco-2">✧</span>
+      <span class="hero-deco deco-3">★</span>
+    </div>
+
+    <!-- Links -->
+    <div class="links-container">
+      <!-- Social -->
+      <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="section-icon">🌸</div>
+          <span class="section-title">Social</span>
+          <div class="section-line"></div>
+          <span class="section-chevron">▼</span>
+        </div>
+        <div class="links-wrapper">
+          <div class="links-grid">
+          <a href="https://www.tumblr.com/blog/gwyntel" class="link-item">
+            <div class="link-icon">✒</div>
+            <span class="link-text">Tumblr</span>
+            <span class="link-arrow">→</span>
+          </a>
+          <a href="https://twitter.com/gwyntel" class="link-item">
+            <div class="link-icon">🐦</div>
+            <span class="link-text">Twitter / gwyntel</span>
+            <span class="link-arrow">→</span>
+          </a>
+          <a href="https://twitter.com/baphometadata" class="link-item">
+            <div class="link-icon">💫</div>
+            <span class="link-text">Twitter / baphometadata</span>
+            <span class="link-arrow">→</span>
+          </a>
+          <a href="https://www.reddit.com/user/perspectiva_modifica/" class="link-item">
+            <div class="link-icon">👽</div>
+            <span class="link-text">Reddit</span>
+            <span class="link-arrow">→</span>
+          </a>
+          <a href="https://github.com/supermeap123/" class="link-item">
+            <div class="link-icon">🐙</div>
+            <span class="link-text">GitHub</span>
+            <span class="link-arrow">→</span>
+          </a>
+          <a href="https://www.snapchat.com/add/gwyntvm" class="link-item">
+            <div class="link-icon">👻</div>
+            <span class="link-text">Snapchat</span>
+            <span class="link-arrow">→</span>
+          </a>
+        </div>
+        </div>
+      </div>
+
+      <!-- Chat -->
+      <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="section-icon">💬</div>
+          <span class="section-title">Chat</span>
+          <div class="section-line"></div>
+          <span class="section-chevron">▼</span>
+        </div>
+        <div class="links-wrapper">
+          <div class="links-grid">
+            <a href="discord://discordapp.com/users/203663993741639680" class="link-item">
+              <div class="link-icon">🎮</div>
+              <span class="link-text">Discord</span>
+              <span class="link-arrow">→</span>
+            </a>
+            <a href="https://signal.me/#eu/Ow-fGo_FUJsHGD57fwca1mjsb2l-nFaayL2Mn3gJhzaEOya_DNhCEqEGkqDU5gye" class="link-item">
+              <div class="link-icon">🔐</div>
+              <span class="link-text">Signal</span>
+              <span class="link-arrow">→</span>
+            </a>
+            <a href="https://t.me/gwyntel" class="link-item">
+              <div class="link-icon">✈️</div>
+              <span class="link-text">Telegram</span>
+              <span class="link-arrow">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Music -->
+      <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="section-icon">🎵</div>
+          <span class="section-title">Music</span>
+          <div class="section-line"></div>
+          <span class="section-chevron">▼</span>
+        </div>
+        <div class="links-wrapper">
+          <div class="links-grid">
+            <a href="https://open.spotify.com/user/gwyntvm" class="link-item">
+              <div class="link-icon">🎧</div>
+              <span class="link-text">Spotify</span>
+              <span class="link-arrow">→</span>
+            </a>
+            <a href="https://last.fm/user/thepompomsbitch" class="link-item">
+              <div class="link-icon">🎶</div>
+              <span class="link-text">Last.fm</span>
+              <span class="link-arrow">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gaming -->
+      <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="section-icon">🎮</div>
+          <span class="section-title">Gaming</span>
+          <div class="section-line"></div>
+          <span class="section-chevron">▼</span>
+        </div>
+        <div class="links-wrapper">
+          <div class="links-grid">
+            <a href="steam:gwyntel" class="link-item">
+              <div class="link-icon">🚂</div>
+              <span class="link-text">Steam / add me</span>
+              <span class="link-arrow">→</span>
+            </a>
+            <a href="https://steamcommunity.com/profiles/76561198075696310" class="link-item">
+              <div class="link-icon">📊</div>
+              <span class="link-text">Steam / profile</span>
+              <span class="link-arrow">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Legacy Contact -->
+      <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="section-icon">📞</div>
+          <span class="section-title">Contact</span>
+          <div class="section-line"></div>
+          <span class="section-chevron">▼</span>
+        </div>
+        <div class="links-wrapper">
+          <div class="links-grid">
+            <a href="tel:+15304206902" class="link-item">
+              <div class="link-icon">📱</div>
+              <span class="link-text">Google Voice</span>
+              <span class="link-arrow">→</span>
+            </a>
+            <a href="mailto:contactcard@gwyn.tel" class="link-item">
+              <div class="link-icon">💌</div>
+              <span class="link-text">Email</span>
+              <span class="link-arrow">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pastel Progress Pride Bar -->
+  <div class="pride-bar">
+    <span class="pride-text">
+      <span class="pride-star">★</span>
+      TRANS RIGHTS ARE HUMAN RIGHTS
+      <span class="pride-star">★</span>
+    </span>
+  </div>
+
+  <script>
+    // Floating sparkles
+    const sparkles = document.getElementById('sparkles');
+    const sparkleChars = ['✦', '✧', '★', '☆', '✶', '✷', '✴', '✵', '⁂', '✿'];
+    for (let i = 0; i < 15; i++) {
+      const s = document.createElement('span');
+      s.className = 'sparkle-float';
+      s.textContent = sparkleChars[Math.floor(Math.random() * sparkleChars.length)];
+      s.style.left = Math.random() * 100 + '%';
+      s.style.animationDelay = Math.random() * 8 + 's';
+      s.style.animationDuration = (6 + Math.random() * 4) + 's';
+      s.style.color = ['#FFB5C5', '#A5D8FF', '#D4B8FF', '#FFF0A5', '#A8E6CF'][Math.floor(Math.random() * 5)];
+      sparkles.appendChild(s);
+    }
+
+    // Effects toggle
+    const toggle = document.getElementById('toggleEffects');
+    let effectsOn = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!effectsOn) {
+      document.body.classList.add('effects-off');
+      toggle.textContent = '⚡';
+      toggle.dataset.state = 'Effects: OFF';
+    }
+
+    toggle.addEventListener('click', () => {
+      effectsOn = !effectsOn;
+      document.body.classList.toggle('effects-off', !effectsOn);
+      toggle.textContent = effectsOn ? '✨' : '⚡';
+      toggle.dataset.state = effectsOn ? 'Effects: ON' : 'Effects: OFF';
+    });
+
+    // Konami code easter egg
+    let konami = [];
+    const konamiSeq = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+
+    document.addEventListener('keydown', (e) => {
+      konami.push(e.key);
+      konami = konami.slice(-10);
+      if (konami.join(',') === konamiSeq.join(',')) {
+        document.body.classList.toggle('rainbow-mode');
+        
+        const popup = document.createElement('div');
+        popup.style.cssText = `
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%) scale(0.8);
+          background: white;
+          padding: 2rem 3rem;
+          border-radius: 24px;
+          box-shadow: 0 20px 60px rgba(232, 120, 154, 0.3);
+          font-family: 'Space Mono', monospace;
+          font-size: 1.5rem;
+          text-align: center;
+          z-index: 10000;
+          animation: pop-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        `;
+        popup.innerHTML = '✨<br>RAINBOW MODE<br>UNLOCKED<br>✨';
+        document.body.appendChild(popup);
+        setTimeout(() => popup.remove(), 2000);
+      }
+    });
+
+    // Add pop-in animation
+    const style = document.createElement('style');
+    style.textContent = `@keyframes pop-in { from { transform: translate(-50%, -50%) scale(0.5); opacity: 0; } to { transform: translate(-50%, -50%) scale(1); opacity: 1; } }`;
+    document.head.appendChild(style);
+
+    // Console easter egg
+    console.log('%c✦ GWYNTEL\'s CORNER ✦', 'font-size: 28px; font-weight: bold; color: #E8789A; font-family: monospace;');
+    console.log('%cLike what you see? Try ↑↑↓↓←→←→BA', 'font-size: 12px; color: #7A7572; font-family: monospace;');
+
+    // Section toggle (expand/collapse)
+    function toggleSection(header) {
+      const section = header.parentElement;
+      const wrapper = section.querySelector('.links-wrapper');
+      
+      section.classList.toggle('collapsed');
+      wrapper.classList.toggle('collapsed');
+      
+      // Save state to localStorage
+      const sections = document.querySelectorAll('.section');
+      const states = Array.from(sections).map(s => s.classList.contains('collapsed'));
+      localStorage.setItem('gwynthel-sections', JSON.stringify(states));
+    }
+
+    // Restore collapsed state from localStorage
+    const savedSections = localStorage.getItem('gwynthel-sections');
+    if (savedSections) {
+      const states = JSON.parse(savedSections);
+      document.querySelectorAll('.section').forEach((section, i) => {
+        if (states[i]) {
+          section.classList.add('collapsed');
+          section.querySelector('.links-wrapper').classList.add('collapsed');
+        }
+      });
+    }
+  </script>
+</body>
+</html>

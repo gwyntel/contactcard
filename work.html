@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gwyneth Van Meter · Infrastructure & Information Security Professional</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --pastel-pink: #FFB5C5;
+      --pastel-blue: #A5D8FF;
+      --pastel-lavender: #D4B8FF;
+      --pastel-yellow: #FFF0A5;
+      --pastel-green: #A8E6CF;
+      --pastel-peach: #FFCDB2;
+      --pastel-cream: #FFF5E6;
+      --pastel-charcoal: #5C5C5C;
+      --pastel-brown: #C9A88A;
+      
+      --bg: #FDF8F5;
+      --bg-alt: #FFF9F5;
+      --card: rgba(255, 255, 255, 0.7);
+      
+      --text: #2D2A26;
+      --text-muted: #7A7572;
+      
+      --accent: #E8789A;
+      --accent-alt: #9B8FD9;
+      
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --space-10: 40px;
+      --space-12: 48px;
+      --space-16: 64px;
+      
+      --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html { font-size: 18px; }
+
+    body {
+      font-family: 'Instrument Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: var(--space-10) var(--space-6) var(--space-20);
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: var(--space-12);
+      animation: fade-up 0.6s var(--ease-out-expo);
+    }
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      text-decoration: none;
+      margin-bottom: var(--space-6);
+      transition: color 0.2s ease;
+    }
+
+    .back-link:hover {
+      color: var(--accent);
+    }
+
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-lavender));
+      margin: 0 auto var(--space-6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      box-shadow: 0 8px 30px rgba(232, 120, 154, 0.2);
+    }
+
+    h1 {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(1.5rem, 5vw, 2rem);
+      font-weight: 700;
+      margin-bottom: var(--space-2);
+    }
+
+    .title {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-bottom: var(--space-4);
+    }
+
+    .location {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: var(--space-6);
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-4);
+      background: var(--pastel-green);
+      color: var(--text);
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: 100px;
+    }
+
+    .status-badge::before {
+      content: '●';
+      color: #00AA44;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* Main Actions */
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-12);
+      animation: fade-up 0.6s var(--ease-out-expo) 0.1s both;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-4) var(--space-6);
+      border-radius: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s var(--spring);
+      border: 2px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--text);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .btn-secondary {
+      background: white;
+      border-color: var(--pastel-lavender);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: var(--space-12);
+      animation: fade-up 0.6s var(--ease-out-expo) 0.2s both;
+    }
+
+    .section-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      margin-bottom: var(--space-5);
+      padding-bottom: var(--space-3);
+      border-bottom: 2px solid var(--pastel-lavender);
+    }
+
+    /* Skills Grid */
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+
+    .skill-tag {
+      padding: var(--space-2) var(--space-4);
+      background: white;
+      border: 1px solid var(--pastel-lavender);
+      border-radius: 100px;
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+
+    .skill-tag.highlight {
+      background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-lavender));
+      border-color: transparent;
+      color: white;
+      font-weight: 600;
+    }
+
+    /* Experience */
+    .experience-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-8);
+    }
+
+    .experience-item {
+      padding: var(--space-6);
+      background: white;
+      border-radius: 16px;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .experience-header {
+      margin-bottom: var(--space-4);
+    }
+
+    .experience-title {
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: var(--space-1);
+    }
+
+    .experience-company {
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+
+    .experience-meta {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: var(--space-2);
+      font-family: 'Space Mono', monospace;
+    }
+
+    .experience-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: var(--space-4);
+    }
+
+    .experience-highlights {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .experience-highlights li {
+      position: relative;
+      padding-left: var(--space-5);
+      font-size: 0.9rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .experience-highlights li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    /* Contact */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--space-4);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      background: white;
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.3s ease;
+      border: 1px solid transparent;
+    }
+
+    .contact-item:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--pastel-blue), var(--pastel-lavender));
+      border-radius: 10px;
+      font-size: 1.3rem;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .contact-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .contact-value {
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    /* Summary Box */
+    .summary-box {
+      background: white;
+      padding: var(--space-6);
+      border-radius: 16px;
+      border: 1px solid rgba(0,0,0,0.05);
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    .summary-box p {
+      margin-bottom: var(--space-4);
+    }
+
+    .summary-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding-top: var(--space-10);
+      border-top: 1px solid var(--pastel-lavender);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    /* Pride bar */
+    .pride-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 40px;
+      background: linear-gradient(
+        90deg,
+        var(--pastel-pink) 0%,
+        var(--pastel-blue) 14%,
+        var(--pastel-cream) 28%,
+        var(--pastel-brown) 42%,
+        var(--pastel-charcoal) 56%,
+        #FFB5B5 56%,
+        #FFD4A5 70%,
+        var(--pastel-yellow) 84%,
+        var(--pastel-green) 100%
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 99;
+    }
+
+    .pride-text {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: white;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 600px) {
+      html { font-size: 16px; }
+      .container { padding: var(--space-8) var(--space-4) var(--space-16); }
+      .avatar { width: 100px; height: 100px; font-size: 2.5rem; }
+      .experience-item { padding: var(--space-5); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <a href="index.html" class="back-link">← Back to Personal</a>
+      
+      <div class="avatar">👩‍💻</div>
+      
+      <h1>Gwyneth Van Meter</h1>
+      <p class="title">Infrastructure & Information Security Professional</p>
+      
+      <div class="location">
+        <span>📍</span>
+        <span>Greater Sacramento Area · Open to Hybrid</span>
+      </div>
+      
+      <span class="status-badge">Open to Work</span>
+    </header>
+
+    <div class="actions">
+      <a href="https://www.linkedin.com/in/gwyn3th" class="btn btn-primary" target="_blank">
+        <span>💼</span> LinkedIn Profile
+      </a>
+      <a href="mailto:resume+indeed@gwyn.tel" class="btn btn-secondary">
+        <span>📧</span> Email Resume
+      </a>
+      <a href="https://github.com/supermeap123/" class="btn btn-secondary" target="_blank">
+        <span>🐙</span> GitHub
+      </a>
+    </div>
+
+    <section class="section">
+      <h2 class="section-title">Professional Summary</h2>
+      <div class="summary-box">
+        <p>
+          Infrastructure and information security professional with <strong>6+ years</strong> of hands-on experience spanning server administration, VDI, and cybersecurity in a complex, multi-compliance government environment. Served as <strong>sole security analyst</strong> for El Dorado County — supporting 1,800+ employees and 193,000+ constituents across HIPAA, CJIS, Child Support, CPS, Probation, and Jail compliance domains.
+        </p>
+        <p>
+          Architected and led a <strong>full enterprise GSuite-to-M365 migration</strong> (2,400 accounts), built SIEM infrastructure from the ground up, implemented zero-trust architecture, and conducted forensic investigations resulting in formal HR and disciplinary action. Owned end-to-end responsibility for CrowdStrike EDR, Netwrix Auditor, VMware Horizon VDI, VxRail, NSX, Rubrik, and election IT infrastructure.
+        </p>
+        <p>
+          Known for rapid onboarding, unilateral problem-solving under pressure, and bridging on-premises infrastructure to high-assurance cloud environments including <strong>Azure Government</strong>. Deep expertise in VMware Horizon VDI (~1,700 users), CrowdStrike XDR (FQL/PSFalcon), Palo Alto NGFW, and multi-OS server fleets (Windows Server 2016-2022, Ubuntu, RockyLinux, VMware PhotonOS).
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Core Technical Competencies</h2>
+      <div class="skills-grid">
+        <span class="skill-tag highlight">VMware Horizon VDI</span>
+        <span class="skill-tag highlight">CrowdStrike XDR</span>
+        <span class="skill-tag highlight">Azure AD / M365</span>
+        <span class="skill-tag highlight">Palo Alto NGFW</span>
+        <span class="skill-tag highlight">VMware NSX</span>
+        <span class="skill-tag">PowerShell</span>
+        <span class="skill-tag">Bash</span>
+        <span class="skill-tag">Windows Server 2016-2022</span>
+        <span class="skill-tag">Active Directory</span>
+        <span class="skill-tag">Azure AD Connect</span>
+        <span class="skill-tag">SIEM / Elastic Beats</span>
+        <span class="skill-tag">WEF/WEC Pipeline</span>
+        <span class="skill-tag">Zero Trust Architecture</span>
+        <span class="skill-tag">Thycotic/Delinea</span>
+        <span class="skill-tag">Azure JIT</span>
+        <span class="skill-tag">Rubrik Backup</span>
+        <span class="skill-tag">Dell VxRail HCI</span>
+        <span class="skill-tag">VMware vSAN</span>
+        <span class="skill-tag">Proxmox</span>
+        <span class="skill-tag">LXC/QEMU</span>
+        <span class="skill-tag">Jamf Pro</span>
+        <span class="skill-tag">LAPS</span>
+        <span class="skill-tag">PKI / Certificates</span>
+        <span class="skill-tag">BitLocker</span>
+        <span class="skill-tag">DLP / Proofpoint</span>
+        <span class="skill-tag">MITRE ATT&CK</span>
+        <span class="skill-tag">Forensics / IR</span>
+        <span class="skill-tag">Cuckoo Sandbox</span>
+        <span class="skill-tag">CVSS/CVE Scoring</span>
+        <span class="skill-tag">OWASP Risk</span>
+        <span class="skill-tag">HIPAA Compliance</span>
+        <span class="skill-tag">CJIS</span>
+        <span class="skill-tag">Azure Government</span>
+        <span class="skill-tag">YubiKey PIV</span>
+        <span class="skill-tag">Netwrix Auditor</span>
+        <span class="skill-tag">Nimble SAN</span>
+        <span class="skill-tag">Synology NAS</span>
+        <span class="skill-tag">VoIP</span>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Professional Experience</h2>
+      <div class="experience-list">
+        <div class="experience-item">
+          <div class="experience-header">
+            <div class="experience-title">Information Security Analyst</div>
+            <div class="experience-company">County of El Dorado · Placerville, CA</div>
+            <div class="experience-meta">Jun 2024 – Mar 2025 · Hybrid</div>
+          </div>
+          <p class="experience-desc">
+            Sole security analyst responsible for threat detection, incident response, and compliance across six sensitive domains serving 193,000+ constituents. Built security infrastructure from the ground up and led investigations resulting in formal disciplinary action.
+          </p>
+          <ul class="experience-highlights">
+            <li>Administered <strong>CrowdStrike XDR at full platform depth</strong> — prevention policies, detection sensitivity by asset class, alert triage, threat hunting, post-incident reporting, and automation using FQL and PSFalcon</li>
+            <li>Conducted <strong>forensic log analysis</strong> across Netwrix Auditor, CrowdStrike, and WEF/WEC-streamed workstation and VDI logs; produced formal investigation reports that directly resulted in employee terminations and disciplinary action</li>
+            <li>Performed <strong>sandbox analysis at scale</strong> for suspicious files using Palo Alto WildFire, CrowdStrike FalconX Sandbox, and Cuckoo Sandbox; used Microsoft Safety Scanner, Cisco ClamAV, and VirusTotal YARA for IOC-based malware identification</li>
+            <li>Forensically scanned and cleared <strong>incoming electronic media</strong> for court proceedings, child support hearings, and probation case review; facilitated safe social media scraping and review for Probation department</li>
+            <li>Led <strong>incident response</strong> with server, networking, and CISO teams — executing containment, eradication, and recovery using MITRE ATT&CK for attack categorization and remediation sequencing</li>
+            <li>Correlated <strong>multi-source timelines</strong> (firewall, endpoint, AD, email, backup logs) to investigate security violations; documented findings with evidence chains suitable for HR and legal proceedings</li>
+            <li>Used CrowdStrike <strong>Spotlight and Discovery</strong> for software inventory and compliance; identified unenrolled assets via ARP table and network neighbor analysis, actively closing EDR coverage gaps</li>
+            <li>Developed <strong>automated PowerShell and PSFalcon workflows</strong> for malware remediation, alert enrichment, and asset tracking</li>
+            <li>Owned the county's <strong>security posture assessment process</strong> across software procurement lifecycle — evaluated vendor questionnaires, built OWASP-scored risk profiles with spider graph visualizations</li>
+            <li>Conducted <strong>security risk assessments and BIA</strong> using CVSS/CVE scoring; translated technical risk into business impact language for CISO and stakeholder reporting</li>
+            <li>Authored county <strong>IT security policies adopted as formal EDC policy</strong>: no-external-USB policy with investigation, blocking, and reporting workflows; anti-public-content policy enforced at firewall level</li>
+            <li>Administered <strong>Proofpoint TAP/TRAP, DLP policies (HIPAA/CJIS), PKI, and BitLocker</strong> fleet-wide with custom PowerShell tooling for USB device identification by VID, PID, and serial number</li>
+            <li>Served as primary IT resource for <strong>election infrastructure</strong> — owned YubiKey PIV smart card logon with smart card removal policies for all vote center stations</li>
+            <li>Maintained <strong>Netwrix Auditor</strong> as primary AD change auditing and logon event platform — built custom reports and alerting for access anomalies and configuration drift</li>
+          </ul>
+        </div>
+
+        <div class="experience-item">
+          <div class="experience-header">
+            <div class="experience-title">Information Technology Analyst II — Server Design & Administration</div>
+            <div class="experience-company">County of El Dorado · Placerville, CA</div>
+            <div class="experience-meta">Jun 2020 – Jun 2024 · 4 yrs</div>
+          </div>
+          <p class="experience-desc">
+            Designed, administered, and maintained enterprise server environment of 500-1,300 virtual machines supporting ~1,800 employees. Led major cloud migration and implemented zero-trust architecture.
+          </p>
+          <ul class="experience-highlights">
+            <li>Administered <strong>VMware Horizon VDI</strong> for ~1,700 concurrent users across 20+ departments; managed VMware AppVolumes for application layering and VMware UEM/DEM for user environment management</li>
+            <li>Deployed and maintained <strong>VMware ESXi, vSphere, Hyper-V, Proxmox, QEMU/KVM, LXC, and Dell VxRail HCI</strong>; used VMware PowerCLI extensively for bulk infrastructure automation and reporting</li>
+            <li>Administered <strong>multi-OS server fleet</strong>: Windows Server 2016/2019/2022 (Core & GUI), Ubuntu, Debian, RockyLinux/CentOS, VMware PhotonOS, and Dell VxRail Manager</li>
+            <li>Maintained <strong>Active Directory, Group Policy, NAS, VPN infrastructure, and Synology solutions</strong>; managed enterprise MDM for mixed Windows/macOS fleets</li>
+            <li>Led <strong>enterprise GSuite to M365 migration</strong> for 2,400 accounts; migrated 6,000 retained records from Google Vault into Microsoft Purview Compliance for legal hold and eDiscovery</li>
+            <li>Architected and deployed <strong>Azure AD Connect for hybrid identity</strong> with seamless SSO; deployed full M365 E3/E5 stack with conditional access policy and Teams E2E encryption</li>
+            <li>Modernized legacy plaintext unauthenticated email infrastructure by implementing a <strong>software adapter layer routing application mail through AWS SES with TLS encryption</strong></li>
+            <li>Built <strong>POS log redirection shims</strong> for Community Development and Permitting department to enable rapid troubleshooting of CardKnox/Fidelity Payments EMV reader connectivity</li>
+            <li>Administered <strong>Azure Government sovereign cloud</strong>, bridging County on-premises infrastructure to high-assurance compliance regions</li>
+            <li>Administered <strong>Rubrik enterprise backup platform</strong> — performed hundreds of restores spanning individual files, full VMs, and database-level recoveries; audited backup jobs and validated recovery integrity</li>
+            <li>Executed <strong>SAN-based snapshot recovery</strong> using Nimble Storage volume clone-swaps: mounted snapshot clones, pulled failed originals offline, restored and validated in place for rapid major incident recovery</li>
+            <li>Recovered <strong>persistent VDI machines broken by mid-install application failures</strong> using snapshot revert; consistently restored affected desktops within 30 minutes</li>
+            <li>Administered <strong>LAPS across entire Windows fleet</strong> for privileged access hygiene; served as primary Jamf administrator for all County Apple devices</li>
+            <li>Built <strong>PowerShell automation for BitLocker USB inventory</strong> — generated device identification strings from VID, PID, serial number, and metadata for reliable helpdesk key retrieval</li>
+            <li>Managed <strong>HPDM for thin client fleet</strong>; built and deployed thin client images for non-persistent VDI environments</li>
+            <li>Served as <strong>sole security resource for network segmentation</strong> across six compliance-sensitive domains: HIPAA, CJIS, Child Support, CPS, Jail Staff, and Probation</li>
+            <li>Independently resolved <strong>Palo Alto NGFW alerts</strong>; created custom AppIDs. Administered VMware NSX for micro-segmentation with AD and Palo Alto data sharing integration</li>
+            <li>Built <strong>SIEM infrastructure end-to-end</strong>: Palo Alto deep integration, CrowdStrike S3 log replication, WEF/WEC pipeline, Elastic Beats forwarding, and custom indicator development</li>
+            <li>Implemented <strong>zero-trust architecture</strong> using Thycotic/Delinea Secret Server and Azure Just-In-Time access</li>
+          </ul>
+        </div>
+
+        <div class="experience-item">
+          <div class="experience-header">
+            <div class="experience-title">Information Technology Extra Help (Intern)</div>
+            <div class="experience-company">County of El Dorado · Placerville, CA</div>
+            <div class="experience-meta">May 2019 – Jun 2020 · Promoted to Analyst II</div>
+          </div>
+          <ul class="experience-highlights">
+            <li>Deployed and maintained applications in <strong>non-persistent VDI environments</strong>; optimized VMware Horizon desktop pools</li>
+            <li>Developed and deployed <strong>thin client images</strong>; authored technical documentation and led internal VDI change meetings</li>
+            <li>Promoted to IT Analyst II after demonstrating independent capability</li>
+          </ul>
+        </div>
+
+        <div class="experience-item">
+          <div class="experience-header">
+            <div class="experience-title">IT Consultant</div>
+            <div class="experience-company">Landmark Environmental Inc. · Placerville, CA</div>
+            <div class="experience-meta">May 2019 – Dec 2021</div>
+          </div>
+          <ul class="experience-highlights">
+            <li>Deployed and administered <strong>NAS infrastructure</strong>; redesigned network architecture</li>
+            <li>Implemented <strong>hybrid on-site/off-site backup solution</strong> and administered VoIP systems</li>
+          </ul>
+        </div>
+
+        <div class="experience-item">
+          <div class="experience-header">
+            <div class="experience-title">Media & IT Captain (Volunteer)</div>
+            <div class="experience-company">FIRST Robotics Team #3189 · El Dorado Hills, CA</div>
+            <div class="experience-meta">Oct 2015 – Jan 2019 · 3+ yrs</div>
+          </div>
+          <ul class="experience-highlights">
+            <li>Sole IT support for ~40 active users; implemented <strong>LAN, firewall, managed desktop fleet</strong>, and maintained Active Directory domain with Windows Server 2016 domain controllers</li>
+            <li>Deployed <strong>Hyper-V-based VDI/RDS farm</strong> with RemoteFX 3D acceleration and HTML5 web access</li>
+            <li>Supervised and trained 3 junior IT team members</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Education & Certifications</h2>
+      <div class="summary-box">
+        <p><strong>Associate of Science — Information Systems</strong> (In Progress)<br>
+        Folsom Lake College · 26 semester units completed in Computer Information Systems</p>
+        <p style="margin-top: var(--space-4);">
+          <strong>Certifications:</strong> CompTIA Security+, Network+, A+, CIOS, CSIS (expired — willing to renew) · 
+          VMware NSX Network Security Trained Professional · 
+          Amateur Radio License (KK6PPR) · 
+          LinkedIn Skill Assessments: Windows Server, Bash, GCP
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Contact</h2>
+      <div class="contact-grid">
+        <a href="mailto:resume+indeed@gwyn.tel" class="contact-item">
+          <div class="contact-icon">📧</div>
+          <div class="contact-info">
+            <span class="contact-label">Email</span>
+            <span class="contact-value">resume@gwyn.tel</span>
+          </div>
+        </a>
+        
+        <a href="https://www.linkedin.com/in/gwyn3th" class="contact-item" target="_blank">
+          <div class="contact-icon">💼</div>
+          <div class="contact-info">
+            <span class="contact-label">LinkedIn</span>
+            <span class="contact-value">linkedin.com/in/gwyn3th</span>
+          </div>
+        </a>
+        
+        <a href="https://github.com/supermeap123/" class="contact-item" target="_blank">
+          <div class="contact-icon">🐙</div>
+          <div class="contact-info">
+            <span class="contact-label">GitHub</span>
+            <span class="contact-value">@supermeap123</span>
+          </div>
+        </a>
+
+        <a href="index.html" class="contact-item">
+          <div class="contact-icon">🌸</div>
+          <div class="contact-info">
+            <span class="contact-label">Personal Site</span>
+            <span class="contact-value">contactcard.gwyn.tel</span>
+          </div>
+        </a>
+
+        <a href="https://t.me/gwyntel" class="contact-item" target="_blank">
+          <div class="contact-icon">✈️</div>
+          <div class="contact-info">
+            <span class="contact-label">Telegram</span>
+            <span class="contact-value">@gwyntel</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>References available upon request · Full detailed resume available via email</p>
+    </footer>
+  </div>
+
+  <div class="pride-bar">
+    <span class="pride-text">★ TRANS RIGHTS ARE HUMAN RIGHTS ★</span>
+  </div>
+</body>
+</html>
