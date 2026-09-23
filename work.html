@@ -385,38 +385,69 @@
       font-size: 0.85rem;
     }
 
-    /* Pride bar */
+    /* Pride bar — CANONICAL GRADIENT (keep byte-identical in work.html) */
     .pride-bar {
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 40px;
+      height: 48px;
       background: linear-gradient(
         90deg,
+        /* Trans chevron colors */
         var(--pastel-pink) 0%,
-        var(--pastel-blue) 14%,
-        var(--pastel-cream) 28%,
-        var(--pastel-brown) 42%,
-        var(--pastel-charcoal) 56%,
-        #FFB5B5 56%,
-        #FFD4A5 70%,
-        var(--pastel-yellow) 84%,
-        var(--pastel-green) 100%
+        var(--pastel-blue) 12%,
+        var(--pastel-cream) 24%,
+        /* Marginalized communities */
+        var(--pastel-brown) 24%,
+        var(--pastel-charcoal) 36%,
+        /* Pastel rainbow */
+        #FFB5B5 36%,
+        #FFD4A5 48%,
+        var(--pastel-yellow) 60%,
+        var(--pastel-green) 72%,
+        var(--pastel-blue) 84%,
+        var(--pastel-lavender) 100%
       );
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 99;
+      box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .pride-bar::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg,
+        rgba(255,255,255,0.3) 0%,
+        transparent 50%,
+        rgba(255,255,255,0.2) 100%
+      );
+      pointer-events: none;
     }
 
     .pride-text {
       font-family: 'Space Mono', monospace;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       font-weight: 700;
       color: white;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-      letter-spacing: 0.05em;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      letter-spacing: 0.08em;
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    .pride-star {
+      display: inline-block;
+      animation: star-pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes star-pulse {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.2) rotate(10deg); }
     }
 
     @media (max-width: 600px) {
@@ -683,7 +714,11 @@
   </div>
 
   <div class="pride-bar">
-    <span class="pride-text">★ TRANS RIGHTS ARE HUMAN RIGHTS ★</span>
+    <span class="pride-text">
+      <span class="pride-star">★</span>
+      TRANS RIGHTS ARE HUMAN RIGHTS
+      <span class="pride-star">★</span>
+    </span>
   </div>
 </body>
 </html>
